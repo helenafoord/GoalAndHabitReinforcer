@@ -14,7 +14,10 @@
         android:theme="@style/Theme.GoalAndHabitReinforcer"
         tools:targetApi="31">
         <activity
-            android:name=".DataActivity"
+            android:name=".GoalAndHabitListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".GoalData"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

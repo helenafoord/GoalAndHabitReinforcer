@@ -3,7 +3,7 @@ package com.example.goalandhabitreinforcer
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 
-class DataActivity : AppCompatActivity() {
+class GoalData : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_data)

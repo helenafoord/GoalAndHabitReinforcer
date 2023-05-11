@@ -7,7 +7,7 @@ data class GoalAndHabitData(
     val positiveHabit: String?,
     val task: String?,
     val taskCompleted: Boolean?,
-    val goal: Goal
+    val goal: Int
 
 ):Parcelable{
     @Parcelize

@@ -8,7 +8,7 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class GoalAndHabitAdapter(private val dataSet: MutableList<GoalData>, private val context: Activity):
+class GoalAndHabitAdapter(private val dataSet: MutableList<GoalAndHabitData>, private val context: Activity):
 RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
 
     companion object{
@@ -17,13 +17,15 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
 
     class ViewHolder(view: View): RecyclerView.ViewHolder(view){
         val textViewGoal: TextView
-        val textViewCompleted: TextView
+        val textViewPositiveHabit: TextView
         val progressButton: Button
+        val textViewTasksComplete: TextView
 
         init{
             textViewGoal = view.findViewById(R.id.textView_Goal)
-            textViewCompleted = view.findViewById(R.id.textView_hitGoal)
+            textViewPositiveHabit = view.findViewById(R.id.textView_positiveHabit)
             progressButton = view.findViewById(R.id.button_addProgress)
+            textViewTasksComplete = view.findViewById(R.id.textView_tasksCompleted)
         }
 
     }
@@ -35,6 +37,9 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int){
+        viewHolder.textViewGoal.text = dataSet[position].positiveHabit
+        viewHolder.textViewPositiveHabit.text = dataSet[position].positiveHabit
+        viewHolder.textViewTasksComplete.text = " "
 
     }
 

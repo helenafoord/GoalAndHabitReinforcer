@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">GoalAndHabitReinforcer</string>
     <string name="_1">1.</string>
+    <string name="_2">2.</string>
+    <string name="_3">3.</string>
+    <string name="what_are_three_tasks_you_can_do_to_accomplish_your_goal">What are three tasks you can do to accomplish your goal?</string>
+    <string name="why_do_you_want_to_accomplish_your_goal">Why do you want to accomplish your goal?</string>
+    <string name="goal">Goal:</string>
+    <string name="tell_us_more_about_your_goal">tell us more about your goal...</string>
+    <string name="goal_descripiton">Goal Descripiton:</string>
+    <string name="_4">1.</string>
 </resources>

@@ -6,8 +6,14 @@ import android.widget.Button
 import com.example.goalandhabitreinforcer.databinding.ActivityGoalAndHabitListBinding
 
 class GoalAndHabitListActivity : AppCompatActivity() {
+
+    companion object{
+        const val CREATING_NEW_GOAL = "create new goal"
+    }
+
     private lateinit var binding: ActivityGoalAndHabitListBinding
     private lateinit var addGoal: Button
+    private lateinit var adapter: GoalAndHabitAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

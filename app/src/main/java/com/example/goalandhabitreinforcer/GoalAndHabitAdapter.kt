@@ -39,10 +39,27 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int){
+        var clicked: Int = 0
+
         viewHolder.textViewGoal.text = dataSet[position].positiveHabit
         viewHolder.textViewPositiveHabit.text = dataSet[position].positiveHabit
-        viewHolder.textViewTasksComplete.text = " "
+        viewHolder.textViewTasksNeeded.text = dataSet[position].goal.toString()
+        viewHolder.textViewTasksComplete.text = clicked.toString()
 
+        viewHolder.progressButton.setOnClickListener {
+            clicked++
+            if(clicked == dataSet[position].goal){
+                deleteFromList(position)
+            }
+            else{
+                viewHolder.textViewTasksComplete.text = clicked.toString()
+            }
+        }
+
+    }
+
+    private fun deleteFromList(position: Int) {
+        dataSet.removeAt(position)
     }
 
     override fun getItemCount() = dataSet.size

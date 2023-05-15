@@ -20,12 +20,14 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
         val textViewPositiveHabit: TextView
         val progressButton: Button
         val textViewTasksComplete: TextView
+        val textViewTasksNeeded: TextView
 
         init{
             textViewGoal = view.findViewById(R.id.textView_Goal)
             textViewPositiveHabit = view.findViewById(R.id.textView_positiveHabit)
             progressButton = view.findViewById(R.id.button_addProgress)
-            textViewTasksComplete = view.findViewById(R.id.textView_tasksCompleted)
+            textViewTasksComplete = view.findViewById(R.id.textView_goalDone)
+            textViewTasksNeeded = view.findViewById(R.id.textView_goalNeeded)
         }
 
     }

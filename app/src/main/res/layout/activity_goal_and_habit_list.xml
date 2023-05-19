@@ -7,7 +7,7 @@
     tools:context=".GoalAndHabitListActivity">
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_loanList_createNewLoan"
+        android:id="@+id/fab_loanList_createNewGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
@@ -19,7 +19,7 @@
         tools:ignore="SpeakableTextPresentCheck,ImageContrastCheck" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/button_addGoal"
+        android:id="@+id/recyclerView_goalList_goals"
         android:layout_width="409dp"
         android:layout_height="729dp"
         app:layout_constraintBottom_toBottomOf="parent"

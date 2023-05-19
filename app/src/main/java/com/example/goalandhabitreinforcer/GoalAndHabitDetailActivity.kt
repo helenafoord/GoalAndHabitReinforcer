@@ -1,17 +1,18 @@
 package com.example.goalandhabitreinforcer
 
 import android.os.Bundle
+import android.text.InputType
+import android.view.View
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.goalandhabitreinforcer.databinding.ActivityDataBinding
 
 class GoalAndHabitDetailActivity: AppCompatActivity() {
     private lateinit var binding: ActivityDataBinding
-    private lateinit var positiveHabit: TextView
-    private lateinit var task: TextView
-    private lateinit var description: TextView
     private lateinit var goal: GoalAndHabitData
     private var isCreatingNewGoal: Boolean = false
+    var goalIsEditable = false
 
     companion object{
         const val EXTRA_GOAL = "goal"
@@ -27,13 +28,55 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
             goal = GoalAndHabitData()
             toggleEditable()
         }else{
-            intent.getParcelableExtra<GoalAndHabitData>(EXTRA_GOAL)?:GoalAndHabitData.Goal()
+            goal = intent.getParcelableExtra(EXTRA_GOAL)?:GoalAndHabitData()
         }
+        binding.editTextGoal.setText(goal.goal)
+        binding.editTextReasonForGoal.setText(goal.purpose)
+        binding.editTextNumberOfTasks.setText(goal.tasks.toString())
 
+        binding.saveButton.setOnClickListener {
+            val goalToUpdate = GoalAndHabitData(
+                goal = binding.editTextGoal.text.toString(),
+                purpose = binding.editTextReasonForGoal.text.toString(),
+                tasks = binding.editTextNumberOfTasks.text.toString().toInt(),
+                tasksCompleted = 0
+            )
+            goal = goalToUpdate
+            toggleEditable()
+
+            if(isCreatingNewGoal){
+                finish()
+            }
+        }
     }
 
     private fun toggleEditable() {
-        TODO("Not yet implemented")
+        if(goalIsEditable){
+            goalIsEditable = false
+            binding.saveButton.isEnabled = false
+            binding.saveButton.visibility = View.GONE
+            binding.editTextGoal.isEnabled = false
+            binding.editTextGoal.inputType = InputType.TYPE_NULL
+            binding.editTextReasonForGoal.isEnabled = false
+            binding.editTextReasonForGoal.inputType = InputType.TYPE_NULL
+            binding.editTextNumberOfTasks.isEnabled = false
+            binding.editTextNumberOfTasks.inputType = InputType.TYPE_NULL
+
+            binding.editTextGoal.setText(goal.goal)
+            binding.editTextReasonForGoal.setText(goal.purpose)
+            binding.editTextNumberOfTasks.setText(goal.tasks.toString())
+        }
+        else{
+            goalIsEditable = true
+            binding.saveButton.isEnabled = true
+            binding.saveButton.visibility = View.VISIBLE
+            binding.editTextGoal.isEnabled = true
+            binding.editTextGoal.inputType = InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE
+            binding.editTextReasonForGoal.isEnabled = true
+            binding.editTextReasonForGoal.inputType = InputType.TYPE_TEXT_VARIATION_SHORT_MESSAGE
+            binding.editTextNumberOfTasks.isEnabled = true
+            binding.editTextNumberOfTasks.inputType = InputType.TYPE_NUMBER_VARIATION_NORMAL
+        }
     }
 }
 

@@ -1,11 +1,13 @@
 package com.example.goalandhabitreinforcer
 
 import android.app.Activity
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 
 class GoalAndHabitAdapter(private val dataSet: MutableList<GoalAndHabitData>, private val context: Activity):
@@ -21,6 +23,7 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
         val progressButton: Button
         val textViewTasksComplete: TextView
         val textViewTasksNeeded: TextView
+        val constraintLayoutGoalListLayout: ConstraintLayout
 
         init{
             textViewGoal = view.findViewById(R.id.textView_Goal)
@@ -28,6 +31,7 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
             progressButton = view.findViewById(R.id.button_addProgress)
             textViewTasksComplete = view.findViewById(R.id.textView_goalDone)
             textViewTasksNeeded = view.findViewById(R.id.textView_goalNeeded)
+            constraintLayoutGoalListLayout = view.findViewById(R.id.layout_itemLoan)
         }
 
     }
@@ -40,19 +44,27 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int){
         var clicked: Int = 0
-
-        viewHolder.textViewGoal.text = dataSet[position].positiveHabit
-        viewHolder.textViewPositiveHabit.text = dataSet[position].positiveHabit
-        viewHolder.textViewTasksNeeded.text = dataSet[position].goal.toString()
+        val context = viewHolder.constraintLayoutGoalListLayout.context
+        viewHolder.textViewGoal.text = dataSet[position].goal
+        viewHolder.textViewPositiveHabit.text = dataSet[position].purpose
+        viewHolder.textViewTasksNeeded.text = dataSet[position].tasks.toString()
         viewHolder.textViewTasksComplete.text = clicked.toString()
 
         viewHolder.progressButton.setOnClickListener {
             clicked++
-            if(clicked == dataSet[position].goal){
+            if(clicked == dataSet[position].tasks){
                 deleteFromList(position)
             }
             else{
                 viewHolder.textViewTasksComplete.text = clicked.toString()
+            }
+            viewHolder.constraintLayoutGoalListLayout.isLongClickable = true
+
+            viewHolder.constraintLayoutGoalListLayout.setOnClickListener {
+                when (context) {
+                    is GoalAndHabitListActivity -> context.onGoalItemClicked(dataSet[position])
+                    else -> throw RuntimeException("Unreachable")
+                }
             }
         }
 

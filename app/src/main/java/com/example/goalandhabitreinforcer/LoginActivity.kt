@@ -3,6 +3,8 @@ package com.example.goalandhabitreinforcer
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.provider.SyncStateContract
+import android.provider.UserDictionary.Words.APP_ID
 import android.util.Log
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -12,7 +14,9 @@ import com.backendless.BackendlessUser
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
-import com.example.loginandregistration.databinding.ActivityLoginBinding
+import com.example.goalandhabitreinforcer.Constants.API_KEY
+import com.example.goalandhabitreinforcer.Constants.APP_ID
+import com.example.goalandhabitreinforcer.databinding.ActivityLoginBinding
 
 
 class LoginActivity : AppCompatActivity() {
@@ -52,8 +56,8 @@ class LoginActivity : AppCompatActivity() {
                         // user has been logged in
                         Log.d(TAG, "handleResponse: ${user?.getProperty("username")} has logged in")
 
-                        val resultIntent = Intent(this@LoginActivity, LoanListActivity::class.java).apply {
-                            putExtra(LoanListActivity.USERID, user!!.objectId)
+                        val resultIntent = Intent(this@LoginActivity, GoalAndHabitListActivity::class.java).apply {
+                            putExtra(GoalAndHabitListActivity.USERID, user!!.objectId)
                         }
                         startActivity(resultIntent)
                     }
@@ -72,13 +76,6 @@ class LoginActivity : AppCompatActivity() {
         // setting the value of the fields based on the passed in data
         binding.editTextLoginUsername.setText(intentUsername)
         binding.editTextLoginPassword.setText(intentPassword)
-
-        binding.textViewLoginSignup.setOnClickListener {
-            val registrationIntent = Intent(this, RegistrationActivity::class.java)
-            registrationIntent.putExtra(EXTRA_USERNAME, binding.editTextLoginUsername.text.toString())
-            registrationIntent.putExtra(EXTRA_PASSWORD, binding.editTextLoginPassword.text.toString())
-            startRegistrationForResult.launch(registrationIntent)
-        }
     }
 
 

@@ -8,7 +8,9 @@ data class GoalAndHabitData(
     val purpose: String = " ",
     val goalCompleted: Boolean = false,
     val tasks: Int = 0,
-    val tasksCompleted: Int = 0
+    val tasksCompleted: Int = 0,
+    val ownerId: String = "",
+    val objectId: String = ""
 
 ):Parcelable{
     fun tasksRemaining(): Int{

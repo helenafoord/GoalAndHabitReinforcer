@@ -15,6 +15,7 @@ class GoalAndHabitListActivity : AppCompatActivity() {
     companion object{
         const val CREATING_NEW_GOAL = "create new goal"
         const val TAG = "GoalListActivity"
+        const val USERID = "UserId"
     }
 
     private lateinit var binding: ActivityGoalAndHabitListBinding

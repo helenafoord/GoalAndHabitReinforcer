@@ -4,14 +4,15 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class GoalAndHabitData(
-    val positiveHabit: String?,
-    val task: String?,
-    val taskCompleted: Boolean?,
-    val goal: Int
+    val goal: String = " ",
+    val purpose: String = " ",
+    val goalCompleted: Boolean = false,
+    val tasks: Int = 0,
+    val tasksCompleted: Int = 0
 
 ):Parcelable{
-    @Parcelize
-    data class Goal(
-        val description: String?,
-    ):Parcelable
+    fun tasksRemaining(): Int{
+        return tasks - tasksCompleted
+    }
 }
+

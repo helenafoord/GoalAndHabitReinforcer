@@ -45,6 +45,9 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
             goal = goalToUpdate
             toggleEditable()
 
+            // put in the backendless code to save the goal object
+
+            // finish either way
             if(isCreatingNewGoal){
                 finish()
             }

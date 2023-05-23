@@ -15,6 +15,7 @@ class GoalAndHabitListActivity : AppCompatActivity() {
     companion object{
         const val CREATING_NEW_GOAL = "create new goal"
         const val TAG = "GoalListActivity"
+        const val USERID = "UserId"
     }
 
     private lateinit var binding: ActivityGoalAndHabitListBinding
@@ -28,7 +29,7 @@ class GoalAndHabitListActivity : AppCompatActivity() {
         setContentView(binding.root)
         goal = intent?.getStringExtra(GoalAndHabitDetailActivity.EXTRA_GOAL).toString()
 
-        retrieveAllData(goal)
+        retrieveAllData()
 
         binding.fabLoanListCreateNewGoal.setOnClickListener {
             val goalDetailIntent = Intent(this@GoalAndHabitListActivity, GoalAndHabitDetailActivity::class.java).apply{
@@ -38,11 +39,11 @@ class GoalAndHabitListActivity : AppCompatActivity() {
         }
     }
 
-    private fun retrieveAllData(goal: String?) {
+    private fun retrieveAllData() {
         object:AsyncCallback<List<GoalAndHabitData>>{
-            override fun handleResponse(response: List<GoalAndHabitData>?) {
-                if(response != null){
-                    goals = response as MutableList<GoalAndHabitData>
+            override fun handleResponse(foundGoals: List<GoalAndHabitData>?) {
+                if(foundGoals != null){
+                    goals = foundGoals as MutableList<GoalAndHabitData>
                     adapter = GoalAndHabitAdapter(goals, this@GoalAndHabitListActivity)
                     binding.recyclerViewGoalListGoals.adapter = adapter
                     binding.recyclerViewGoalListGoals.layoutManager =

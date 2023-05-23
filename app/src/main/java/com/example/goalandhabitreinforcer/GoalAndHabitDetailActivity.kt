@@ -10,9 +10,10 @@ import com.example.goalandhabitreinforcer.databinding.ActivityDataBinding
 
 class GoalAndHabitDetailActivity: AppCompatActivity() {
     private lateinit var binding: ActivityDataBinding
-    private lateinit var goal: GoalAndHabitData
+    lateinit var goal: GoalAndHabitData
     private var isCreatingNewGoal: Boolean = false
     var goalIsEditable = false
+
 
     companion object{
         const val EXTRA_GOAL = "goal"

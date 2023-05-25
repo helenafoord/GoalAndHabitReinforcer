@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 
 class GoalAndHabitAdapter(private val dataSet: MutableList<GoalAndHabitData>, private val context: Activity):
-RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
+    RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
 
     companion object{
         const val TAG = "GoalAndHabitAdapter"

@@ -14,4 +14,11 @@
     <string name="login">login</string>
     <string name="reason_for_goal">Reason For Goal</string>
     <string name="how_many_times_do_you_plan_to_execute_your_task">How Many Times Do You Plan to Execute Your Task?</string>
+    <string name="goall">Goal:</string>
+    <string name="number_of_tasks">Number of Tasks</string>
+    <string name="save">SAVE</string>
+    <string name="why_would_you_like_to_accomplish_your_goal">Why do you want to accomplish your goal?</string>
+    <string name="Goal">Goal</string>
+    <string name="goal_and_habit_reinforcer">Goal And Habit Reinforcer</string>
+    <string name="checkbox">CheckBox</string>
 </resources>

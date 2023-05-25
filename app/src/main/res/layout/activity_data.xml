@@ -16,7 +16,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="148dp"
         android:fontFamily="serif"
-        android:text="Goal:"
+        android:text="@string/goal"
         android:textColor="#5E4291"
         android:textSize="28sp"
         android:textStyle="bold"
@@ -29,29 +29,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:hint="Number of Tasks"
+        android:hint="@string/number_of_tasks"
         android:inputType="number"
         android:minHeight="48dp"
-        android:textColorHint="#9D75E4"
+        android:textColorHint="#7C4DFF"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/askHowMany"
-        app:layout_constraintVertical_bias="0.2" />
+        app:layout_constraintVertical_bias="0.2"
+        android:autofillHints="" />
 
     <Button
         android:id="@+id/saveButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="136dp"
-        android:text="SAVE"
+        android:layout_marginBottom="64dp"
+        android:text="@string/save"
         android:textColor="#FFFFFF"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.476"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
@@ -59,7 +60,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="serif"
-        android:text="Why do you want to accomplish your goal?"
+        android:text="@string/why_would_you_like_to_accomplish_your_goal"
         android:textAlignment="center"
         android:textColor="#5E4291"
         android:textSize="22sp"
@@ -77,14 +78,15 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:ems="10"
-        android:hint="Goal"
+        android:hint="@string/Goal"
         android:inputType="textPersonName"
         android:minHeight="48dp"
         android:textColorHint="#9D75E4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editText_reasonForGoal"
@@ -94,13 +96,14 @@
         android:hint="@string/reason_for_goal"
         android:inputType="textPersonName"
         android:minHeight="48dp"
-        android:textColorHint="#9D75E4"
+        android:textColorHint="#7C4DFF"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/goalDescription"
-        app:layout_constraintVertical_bias="0.047" />
+        app:layout_constraintVertical_bias="0.047"
+        android:importantForAutofill="no" />
 
     <TextView
         android:id="@+id/askHowMany"
@@ -122,9 +125,9 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:fontFamily="@font/gravitas_one"
-        android:text="Goal And Habit Reinforcer"
+        android:text="@string/goal_and_habit_reinforcer"
         android:textColor="#DAA385A8"
         android:textSize="34sp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -136,10 +139,12 @@
         android:id="@+id/checkBoxCheckGoal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CheckBox"
+        android:layout_marginBottom="112dp"
+        android:text="@string/checkbox"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/saveButton" />
+        app:layout_constraintTop_toBottomOf="@+id/editText_numberOfTasks" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

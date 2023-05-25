@@ -10,7 +10,7 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
 
-class GoalAndHabitAdapter(private val dataSet: MutableList<GoalAndHabitData>, private val context: Activity):
+class GoalAndHabitAdapter(private val dataSet: MutableList<Goal>, private val context: Activity):
 RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
 
     companion object{

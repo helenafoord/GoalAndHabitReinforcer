@@ -6,9 +6,9 @@ import kotlinx.parcelize.Parcelize
 data class Goal(
     var goal: String = " ",
     var purpose: String = " ",
-    val goalCompleted: Boolean = false,
+    var goalCompleted: Boolean = false,
     var tasks: Int = 0,
-    val tasksCompleted: Int = 0,
+    var tasksCompleted: Int = 0,
     var ownerId: String = "",
     val objectId: String = ""
 

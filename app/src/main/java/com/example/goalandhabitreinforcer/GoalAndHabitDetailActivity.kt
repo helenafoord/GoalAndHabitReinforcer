@@ -15,7 +15,7 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
     private lateinit var binding: ActivityDataBinding
     lateinit var goal: Goal
     private var isCreatingNewGoal: Boolean = false
-    var goalIsEditable = false
+    var goalIsEditable = true
 
 
     companion object{
@@ -32,7 +32,7 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
         val extraGoal = intent.getParcelableExtra<Goal>(EXTRA_GOAL)
         if(extraGoal == null){
             Log.d(TAG, "onCreate: Goal is Null")
-            Log.d(TAG, "onCreate: UserIf is ${intent.getStringExtra(LoginActivity.EXTRA_USERID)}")
+            Log.d(TAG, "onCreate: UserId is ${intent.getStringExtra(LoginActivity.EXTRA_USERID)}")
             goal = Goal()
             toggleEditable()
             binding.saveButton.setOnClickListener {
@@ -43,6 +43,35 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
 
             }
         }
+        else {
+            Log.d(TAG, "onCreate: Mutating loan")
+            goal = extraGoal
+            binding.checkBoxCheckGoal.isChecked = goal.goalCompleted
+            binding.editTextGoal.setText(goal.goal)
+            binding.editTextReasonForGoal.setText(goal.purpose)
+            binding.editTextNumberOfTasks.setText(goal.tasks.toString())
+            binding.saveButton.setOnClickListener {
+                Log.d(TAG, "onCreate: isChecked ${binding.checkBoxCheckGoal.isChecked}")
+                goal.goal = binding.editTextGoal.text.toString()
+                goal.purpose = ""
+                goal.tasks = Integer
+                    .parseInt(binding.editTextNumberOfTasks.text.toString())
+                goal.goalCompleted = binding.checkBoxCheckGoal.isChecked
+                Backendless.Persistence.of(Goal::class.java)
+                    .save(goal, object : AsyncCallback<Goal> {
+                        override fun handleResponse(response: Goal?) {
+                            Log.d(TAG, "handleResponse: Edited successfully $response")
+                        }
+
+                        override fun handleFault(fault: BackendlessFault?) {
+                            Log.e(TAG, "handleFault: $fault")
+                        }
+                    })
+            }
+        }
+        goal = intent.getParcelableExtra(EXTRA_GOAL) ?: Goal()
+
+
         isCreatingNewGoal = intent.getBooleanExtra(GoalAndHabitListActivity.CREATING_NEW_GOAL, false)
         if(isCreatingNewGoal){
             goal = Goal()
@@ -107,7 +136,7 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
     }
 
     private fun toggleEditable() {
-        if(!goalIsEditable){
+        if(goalIsEditable){
             goalIsEditable = false
             binding.saveButton.isEnabled = false
             binding.saveButton.visibility = View.GONE

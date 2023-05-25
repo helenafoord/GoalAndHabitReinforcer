@@ -14,8 +14,7 @@ import com.backendless.BackendlessUser
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
 import com.backendless.persistence.DataQueryBuilder
-import com.example.goalandhabitreinforcer.Constants.API_KEY
-import com.example.goalandhabitreinforcer.Constants.APP_ID
+
 import com.example.goalandhabitreinforcer.databinding.ActivityLoginBinding
 
 
@@ -25,6 +24,7 @@ class LoginActivity : AppCompatActivity() {
         const val TAG = "LoginActivity"
         val EXTRA_USERNAME = "username"
         val EXTRA_PASSWORD = "password"
+        val EXTRA_USERID = "userID"
     }
 
     val startRegistrationForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->

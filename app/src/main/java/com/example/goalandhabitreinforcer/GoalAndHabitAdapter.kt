@@ -1,7 +1,7 @@
 package com.example.goalandhabitreinforcer
 
 import android.app.Activity
-import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,8 +9,11 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.backendless.Backendless
+import com.backendless.async.callback.AsyncCallback
+import com.backendless.exceptions.BackendlessFault
 
-class GoalAndHabitAdapter(private val dataSet: MutableList<GoalAndHabitData>, private val context: Activity):
+class GoalAndHabitAdapter(private val dataSet: MutableList<Goal>, private val context: Activity):
 RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
 
     companion object{
@@ -53,25 +56,39 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
         viewHolder.progressButton.setOnClickListener {
             clicked++
             if(clicked == dataSet[position].tasks){
-                deleteFromList(position)
+                deleteFromBackendless(position)
             }
             else{
                 viewHolder.textViewTasksComplete.text = clicked.toString()
             }
-            viewHolder.constraintLayoutGoalListLayout.isLongClickable = true
 
-            viewHolder.constraintLayoutGoalListLayout.setOnClickListener {
-                when (context) {
-                    is GoalAndHabitListActivity -> context.onGoalItemClicked(dataSet[position])
-                    else -> throw RuntimeException("Unreachable")
-                }
+        }
+        viewHolder.constraintLayoutGoalListLayout.setOnClickListener {
+            when (context) {
+                is GoalAndHabitListActivity -> context.onGoalItemClicked(dataSet[position])
+                else -> throw RuntimeException("Unreachable") // TODO: handle this more elegantly
             }
         }
 
+
     }
 
-    private fun deleteFromList(position: Int) {
-        dataSet.removeAt(position)
+    private fun deleteFromBackendless(position: Int) {
+        Log.d(TAG, "deleteFromBackendless: Deleting ${dataSet[position]}")
+        Backendless.Data.of(Goal::class.java).remove(dataSet[position], object :
+            AsyncCallback<Long> {
+            override fun handleResponse(response: Long?) {
+                Log.d(TAG, "handleResponse: Deleted.")
+                dataSet.removeAt(position)
+                notifyItemRemoved(position)
+            }
+
+            override fun handleFault(fault: BackendlessFault?) {
+                Log.d(TAG, "handleFault: Couldn't Delete")
+                Log.d(TAG, "handleFault: $fault")
+            }
+
+        })
     }
 
     override fun getItemCount() = dataSet.size

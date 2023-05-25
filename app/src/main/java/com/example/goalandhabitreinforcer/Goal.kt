@@ -3,13 +3,13 @@ import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 @Parcelize
-data class GoalAndHabitData(
-    val goal: String = " ",
-    val purpose: String = " ",
+data class Goal(
+    var goal: String = " ",
+    var purpose: String = " ",
     val goalCompleted: Boolean = false,
-    val tasks: Int = 0,
+    var tasks: Int = 0,
     val tasksCompleted: Int = 0,
-    val ownerId: String = "",
+    var ownerId: String = "",
     val objectId: String = ""
 
 ):Parcelable{

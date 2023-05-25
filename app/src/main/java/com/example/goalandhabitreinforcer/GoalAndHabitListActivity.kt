@@ -1,11 +1,11 @@
 package com.example.goalandhabitreinforcer
 
+
+import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Button
-import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
@@ -23,14 +23,14 @@ class GoalAndHabitListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityGoalAndHabitListBinding
     private lateinit var adapter: GoalAndHabitAdapter
-    private var goals = mutableListOf<GoalAndHabitData>()
+    private var goals = mutableListOf<Goal>()
     private lateinit var userId: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityGoalAndHabitListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        userId = intent?.getStringExtra(GoalAndHabitDetailActivity.EXTRA_GOAL).toString()
+        userId = intent?.getStringExtra(GoalAndHabitDetailActivity.EXTRA_USERID).toString()
 
         retrieveAllData(userId)
 
@@ -41,21 +41,31 @@ class GoalAndHabitListActivity : AppCompatActivity() {
             startActivity(goalDetailIntent)
         }
     }
+    override fun onStart() {
+        super.onStart()
+        retrieveAllData(userId)
+    }
+
 
     private fun retrieveAllData(userId: String) {
-        Log.d(TAG, "retrieveAllData: Retrieving Goals")
-        val place = "ownerID = '$userId"
+        Log.d(TAG, "retrieveAllData: Retrieving Goals for $userId")
+        // Backendless.UserService.CurrentUser().userId
+        val place = "ownerId = ${Backendless.UserService.CurrentUser().userId}"
         val queryBuilder = DataQueryBuilder.create()
         queryBuilder.whereClause = place
-        Backendless.Data.of(GoalAndHabitData::class.java).find(
-            queryBuilder, object:AsyncCallback<List<GoalAndHabitData>> {
-                override fun handleResponse(foundGoals: List<GoalAndHabitData>?) {
+        Backendless.Data.of(Goal::class.java).find(
+//            queryBuilder,
+            object:AsyncCallback<List<Goal>> {
+                @SuppressLint("NotifyDataSetChanged")
+                override fun handleResponse(foundGoals: List<Goal>?) {
+                    Log.d(TAG, "handleResponse: $foundGoals")
                     if (foundGoals != null) {
-                        goals = foundGoals as MutableList<GoalAndHabitData>
+                        goals = foundGoals as MutableList<Goal>
                         adapter = GoalAndHabitAdapter(goals, this@GoalAndHabitListActivity)
                         binding.recyclerViewGoalListGoals.adapter = adapter
                         binding.recyclerViewGoalListGoals.layoutManager =
                             LinearLayoutManager(this@GoalAndHabitListActivity)
+                        adapter.notifyDataSetChanged()
                         Log.d(TAG, "handleResponse: data set changed")
                     }
                 }
@@ -68,7 +78,7 @@ class GoalAndHabitListActivity : AppCompatActivity() {
     }
 
 
-    fun onGoalItemClicked(goal: GoalAndHabitData){
+    fun onGoalItemClicked(goal: Goal){
         val intent = Intent(this, GoalAndHabitDetailActivity::class.java)
         intent.putExtra(GoalAndHabitDetailActivity.EXTRA_GOAL, goal)
         startActivity(intent)

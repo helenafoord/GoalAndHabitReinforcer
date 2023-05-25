@@ -107,7 +107,7 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
     }
 
     private fun toggleEditable() {
-        if(goalIsEditable){
+        if(!goalIsEditable){
             goalIsEditable = false
             binding.saveButton.isEnabled = false
             binding.saveButton.visibility = View.GONE

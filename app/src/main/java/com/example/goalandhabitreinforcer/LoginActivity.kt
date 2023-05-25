@@ -1,6 +1,7 @@
 package com.example.goalandhabitreinforcer
 
 import android.app.Activity
+import android.app.Instrumentation
 import android.content.Intent
 import android.os.Bundle
 import android.provider.SyncStateContract
@@ -27,13 +28,13 @@ class LoginActivity : AppCompatActivity() {
         val EXTRA_USERID = "userID"
     }
 
-    val startRegistrationForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: ActivityResult ->
-        if (result.resultCode == Activity.RESULT_OK) {
-            val intent = result.data
-            binding.editTextLoginUsername.setText(intent?.getStringExtra(LoginActivity.EXTRA_USERNAME))
-            binding.editTextLoginPassword.setText(intent?.getStringExtra(LoginActivity.EXTRA_PASSWORD))
-        }
-    }
+//    val startRegistrationForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result: Instrumentation.ActivityResult ->
+//        if (result.resultCode == Activity.RESULT_OK) {
+//            val intent = result.data
+//            binding.editTextLoginUsername.setText(intent?.getStringExtra(LoginActivity.EXTRA_USERNAME))
+//            binding.editTextLoginPassword.setText(intent?.getStringExtra(LoginActivity.EXTRA_PASSWORD))
+//        }
+//    }
 
     private lateinit var binding: ActivityLoginBinding
 

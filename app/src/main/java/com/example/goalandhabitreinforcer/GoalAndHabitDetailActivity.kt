@@ -164,4 +164,3 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
         }
     }
 }
-

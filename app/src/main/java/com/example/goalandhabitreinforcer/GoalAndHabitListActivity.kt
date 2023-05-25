@@ -84,6 +84,4 @@ class GoalAndHabitListActivity : AppCompatActivity() {
         startActivity(intent)
     }
 
-
-
 }

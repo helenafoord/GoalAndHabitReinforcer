@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#DAF0D9F4"
+    android:background="#DAFFFFFF"
     tools:context=".LoginActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -86,6 +86,7 @@
         android:fontFamily="sans-serif"
         android:foregroundTint="#FFFFFF"
         android:text="Goal And Habit Reinforcer"
+        android:textAlignment="center"
         android:textColor="#DA88658E"
         android:textColorHint="#FFFFFF"
         android:textSize="48sp"

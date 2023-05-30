@@ -8,6 +8,7 @@ import com.backendless.Backendless
 import com.backendless.BackendlessUser
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
+import com.backendless.persistence.DataQueryBuilder
 import com.example.goalandhabitreinforcer.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -33,8 +34,9 @@ class LoginActivity : AppCompatActivity() {
                 binding.editTextLoginPassword.text.toString(),
                 object : AsyncCallback<BackendlessUser> {
                     override fun handleResponse(response: BackendlessUser?) {
-                        Log.d(TAG, "handleResponse: $response")
+                        Log.d(TAG, "handleResponse: ${response?.userId}")
                         if (response != null) {
+                            retrieveAllData(response.userId)
                             val goalAndHabitListActivity =
                                 Intent(this@LoginActivity, GoalAndHabitListActivity::class.java)
                             goalAndHabitListActivity.putExtra(EXTRA_USERID, response.userId)
@@ -50,5 +52,21 @@ class LoginActivity : AppCompatActivity() {
             )
 
         }
+    }
+
+    private fun retrieveAllData(userId: String) {
+        val whereClause = "ownerId = '$userId'" // userID = objectID of user
+        val queryBuilder = DataQueryBuilder.create()
+        queryBuilder.whereClause = whereClause
+        Backendless.Data.of(Goal::class.java).find(queryBuilder, object : AsyncCallback<List<Goal?>?> {
+            override fun handleResponse(foundLoans: List<Goal?>?) {
+                //all Contact instances have been found
+                Log.d(TAG, "handleResponse: $foundLoans")
+            }
+
+            override fun handleFault(fault: BackendlessFault) {
+                Log.d(TAG, "handleFault: ${fault.message}")
+            }
+        })
     }
 }

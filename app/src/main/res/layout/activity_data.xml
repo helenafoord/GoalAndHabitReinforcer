@@ -31,6 +31,8 @@
         android:ems="10"
         android:hint="@string/number_of_tasks"
         android:inputType="number"
+        android:focusable="true"
+        android:enabled="true"
         android:minHeight="48dp"
         android:textColorHint="#7C4DFF"
         app:layout_constraintBottom_toTopOf="@+id/saveButton"
@@ -126,12 +128,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
-        android:fontFamily="@font/gravitas_one"
+        android:fontFamily="sans-serif"
         android:text="@string/goal_and_habit_reinforcer"
+        android:textAlignment="center"
         android:textColor="#DAA385A8"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,5 +149,6 @@
         app:layout_constraintHorizontal_bias="0.47"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editText_numberOfTasks" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -66,6 +66,7 @@ RecyclerView.Adapter<GoalAndHabitAdapter.ViewHolder>() {
                 viewHolder.textViewTasksNeeded.setTextColor(Color.LTGRAY)
                 viewHolder.textViewPositiveHabit.setTextColor(Color.LTGRAY)
                 viewHolder.textViewTasksComplete.setTextColor(Color.LTGRAY)
+                viewHolder.progressButton.isClickable = false
             } else {
                 viewHolder.textViewGoal.setTextColor(Color.BLACK)
                 viewHolder.textViewTasksNeeded.setTextColor(Color.BLACK)

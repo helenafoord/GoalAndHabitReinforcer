@@ -3,6 +3,7 @@ package com.example.goalandhabitreinforcer
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.nfc.Tag
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -30,13 +31,14 @@ class GoalAndHabitListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityGoalAndHabitListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        userId = intent.getStringExtra(USERID) ?: ""
+        userId = intent?.getStringExtra(LoginActivity.EXTRA_USERID).toString()
+        Log.d(TAG, "userID: $userId")
 
-        retrieveAllData(userId)
 
         binding.fabLoanListCreateNewGoal.setOnClickListener {
             val goalDetailIntent = Intent(this@GoalAndHabitListActivity, GoalAndHabitDetailActivity::class.java).apply{
                 putExtra(CREATING_NEW_GOAL, true)
+                putExtra(LoginActivity.EXTRA_USERID, userId)
             }
             startActivity(goalDetailIntent)
         }
@@ -50,7 +52,7 @@ class GoalAndHabitListActivity : AppCompatActivity() {
     private fun retrieveAllData(userId: String) {
         Log.d(TAG, "retrieveAllData: Retrieving Goals for $userId")
         // Backendless.UserService.CurrentUser().userId
-        val place = "ownerId = ${Backendless.UserService.CurrentUser().userId}"
+        val place = "ownerId = ${userId}"
         val queryBuilder = DataQueryBuilder.create()
         queryBuilder.whereClause = place
         Backendless.Data.of(Goal::class.java).find(

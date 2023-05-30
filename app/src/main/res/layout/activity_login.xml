@@ -86,7 +86,7 @@
         android:fontFamily="sans-serif"
         android:foregroundTint="#FFFFFF"
         android:text="Goal And Habit Reinforcer"
-        android:textColor="#DAA385A8"
+        android:textColor="#DA88658E"
         android:textColorHint="#FFFFFF"
         android:textSize="48sp"
         android:textStyle="bold"

@@ -10,7 +10,7 @@ data class Goal(
     var tasks: Int = 0,
     var tasksCompleted: Int = 0,
     var ownerId: String = "",
-    val objectId: String = ""
+    var objectId: String = ""
 
 ):Parcelable{
     fun tasksRemaining(): Int{

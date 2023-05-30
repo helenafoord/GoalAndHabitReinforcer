@@ -3,12 +3,16 @@ package com.example.goalandhabitreinforcer
 import android.os.Bundle
 import android.text.InputType
 import android.util.Log
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.backendless.Backendless
 import com.backendless.async.callback.AsyncCallback
 import com.backendless.exceptions.BackendlessFault
+import com.example.goalandhabitreinforcer.R
 import com.example.goalandhabitreinforcer.databinding.ActivityDataBinding
 
 class GoalAndHabitDetailActivity: AppCompatActivity() {
@@ -20,17 +24,17 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
 
     companion object{
         const val EXTRA_GOAL = "goal"
-        const val TAG = "GoalAndHabitListActivity"
+        const val TAG = "GoalHabitListActivity"
         const val EXTRA_USERID = "EXTRA_USERID"
     }
 
-    override fun onCreate(savedInstanceState: Bundle?){
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDataBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         val extraGoal = intent.getParcelableExtra<Goal>(EXTRA_GOAL)
-        if(extraGoal == null){
+        if (extraGoal == null) {
             Log.d(TAG, "onCreate: Goal is Null")
             Log.d(TAG, "onCreate: UserId is ${intent.getStringExtra(LoginActivity.EXTRA_USERID)}")
             goal = Goal()
@@ -40,10 +44,19 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
                 goal.goal = binding.editTextGoal.text.toString()
                 goal.purpose = binding.editTextReasonForGoal.text.toString()
                 goal.tasks = Integer.parseInt(binding.editTextNumberOfTasks.text.toString())
+                goal.ownerId = intent.getStringExtra(GoalAndHabitListActivity.USERID)!!
+                goal.objectId = null.toString()
+                Backendless.Data.of(Goal::class.java).save(goal, object : AsyncCallback<Goal> {
+                    override fun handleResponse(response: Goal?) {
+                        Log.d(TAG, "handleResponse: Created new goal $goal")
+                    }
 
+                    override fun handleFault(fault: BackendlessFault?) {
+                        Log.e(TAG, "handleFault: $fault")
+                    }
+                })
             }
-        }
-        else {
+        } else {
             Log.d(TAG, "onCreate: Mutating loan")
             goal = extraGoal
             binding.checkBoxCheckGoal.isChecked = goal.goalCompleted
@@ -70,25 +83,28 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
             }
         }
         goal = intent.getParcelableExtra(EXTRA_GOAL) ?: Goal()
+    }
 
 
-        isCreatingNewGoal = intent.getBooleanExtra(GoalAndHabitListActivity.CREATING_NEW_GOAL, false)
-        if(isCreatingNewGoal){
-            goal = Goal()
-            toggleEditable()
-        }else{
-            goal = intent.getParcelableExtra(EXTRA_GOAL)?:Goal()
-        }
-        binding.editTextGoal.setText(goal.goal)
-        binding.editTextReasonForGoal.setText(goal.purpose)
-        binding.editTextNumberOfTasks.setText(goal.tasks.toString())
-        binding.checkBoxCheckGoal.isChecked = goal.goalCompleted
 
-        binding.saveButton.setOnClickListener {
-            if(!goal.ownerId.isBlank()){
-                goal.ownerId = intent.getStringExtra(GoalAndHabitListActivity.USERID)?: ""
+   override fun onCreateOptionsMenu(menu: Menu): Boolean {
+            val inflater: MenuInflater = menuInflater
+            inflater.inflate(R.menu.menu_goal_data, menu)
+            return true
+    }
+
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when(item.itemId){
+            R.id.menu_item_goal_detail_edit ->{
+                toggleEditable()
+                true
             }
-            updateGoalInBackendless()
+            R.id.menu_item_goal_detail_delete ->{
+                deleteFromBackendless()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 
@@ -101,38 +117,9 @@ class GoalAndHabitDetailActivity: AppCompatActivity() {
                 }
 
                 override fun handleFault(fault: BackendlessFault) {
-                    Log.d("BirthdayDetail", "handleFault: ${fault.message}")
+                    Log.d(TAG, "handleFault: ${fault.message}")
                 }
             })
-    }
-
-    private fun updateGoalInBackendless() {
-        Log.d("GoalDetailActivity", "updateGoalInBackendless: ${binding.checkBoxCheckGoal.isChecked}")
-
-        val goalToUpdate = Goal(
-            goal = binding.editTextGoal.text.toString(),
-            purpose = binding.editTextReasonForGoal.text.toString(),
-            goalCompleted = binding.checkBoxCheckGoal.isChecked,
-            tasks = binding.editTextNumberOfTasks.text.toString().toInt(),
-            ownerId = goal.ownerId,
-            objectId = goal.objectId
-        )
-
-        Log.d("LoanDetailActivity", "${goalToUpdate.goalCompleted}")
-        Backendless.Data.of(Goal::class.java).save(goalToUpdate, object: AsyncCallback<Goal?>{
-            override fun handleResponse(response: Goal?) {
-                Log.d("GoalAndHabitDetailActivity", "handleResponse: ${response?.goal} updated")
-                goal = goalToUpdate
-                toggleEditable()
-                if(isCreatingNewGoal){
-                    finish()
-                }
-            }
-
-            override fun handleFault(fault: BackendlessFault?) {
-                Log.d("GoalAndHabitDetailActivity", "handleFault: ${fault?.message}")
-            }
-        })
     }
 
     private fun toggleEditable() {

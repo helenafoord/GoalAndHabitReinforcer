@@ -30,7 +30,7 @@ class GoalAndHabitListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityGoalAndHabitListBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        userId = intent?.getStringExtra(GoalAndHabitDetailActivity.EXTRA_USERID).toString()
+        userId = intent.getStringExtra(USERID) ?: ""
 
         retrieveAllData(userId)
 
@@ -54,7 +54,6 @@ class GoalAndHabitListActivity : AppCompatActivity() {
         val queryBuilder = DataQueryBuilder.create()
         queryBuilder.whereClause = place
         Backendless.Data.of(Goal::class.java).find(
-//            queryBuilder,
             object:AsyncCallback<List<Goal>> {
                 @SuppressLint("NotifyDataSetChanged")
                 override fun handleResponse(foundGoals: List<Goal>?) {

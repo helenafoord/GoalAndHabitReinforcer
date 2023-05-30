@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#DAF0D9F4"
     tools:context=".LoginActivity">
 
     <androidx.constraintlayout.widget.Guideline
@@ -71,6 +72,7 @@
         android:layout_marginTop="24dp"
         android:background="#DAE8DCEA"
         android:text="login"
+        app:iconTint="#DAA385A8"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
@@ -81,13 +83,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
-        android:fontFamily="@font/gravitas_one"
+        android:fontFamily="sans-serif"
         android:foregroundTint="#FFFFFF"
         android:text="Goal And Habit Reinforcer"
         android:textColor="#DAA385A8"
         android:textColorHint="#FFFFFF"
         android:textSize="48sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/editText_login_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
